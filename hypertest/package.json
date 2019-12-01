@@ -1,6 +1,6 @@
 {
   "name": "hypertest",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "build": "tsc",
@@ -8,13 +8,13 @@
     "lint": "eslint . --ext .ts --quiet"
   },
   "dependencies": {
+    "@fcostarodrigo/walk": "^4.0.2",
     "@hydrofoil/hypertest": "^0.6.1-0",
+    "commander": "^4.0.1",
     "hydra-validator": "^1.0.11",
     "hydra-validator-e2e": "^0.6.0",
-    "commander": "^4.0.1",
-    "typescript": "^3.7.2",
-    "@fcostarodrigo/walk": "^4.0.2",
-    "line-reader": "^0.4.0"
+    "line-reader": "^0.4.0",
+    "typescript": "^3.7.2"
   },
   "devDependencies": {
     "@tpluscode/eslint-config": "0.0.3",
