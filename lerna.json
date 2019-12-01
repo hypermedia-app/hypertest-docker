@@ -1,0 +1,16 @@
+{
+  "packages": [
+    "hydra-analyser",
+    "hypertest"
+  ],
+  "version": "independent",
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    },
+    "version": {
+      "message": "chore: release new versions",
+      "conventionalCommits": true
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "hydra-analyser",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "docker": "docker build . -t hydrofoil/hydra-analyser"
+  },
+  "dependencies": {
+    "hydra-validator": "^1.0.11",
+    "hydra-validator-analyse": "^0.1.6"
+  }
+}
