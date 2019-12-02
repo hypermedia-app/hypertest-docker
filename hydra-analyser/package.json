@@ -3,10 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "docker": "docker build . -t hydrofoil/hydra-analyser"
+    "build": "tsc",
+    "docker": "docker build . -t hydrofoil/hydra-analyser",
+    "lint": "eslint . --ext .ts --quiet"
   },
   "dependencies": {
     "hydra-validator": "^1.0.11",
-    "hydra-validator-analyse": "^0.1.6"
+    "hydra-validator-analyse": "^0.1.6",
+    "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@tpluscode/eslint-config": "0.0.3",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "standard": "^14.3.1"
   }
 }

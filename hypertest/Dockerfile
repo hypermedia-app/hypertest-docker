@@ -8,11 +8,11 @@ RUN apt-get install -y curl \
 WORKDIR /hydra-validator
 
 ADD tsconfig.json .
-ADD run.ts .
+ADD *.ts ./
 ADD package*.json ./
 
 RUN npm ci
 RUN npm run build
 RUN mkdir tests
 
-ENTRYPOINT node run.js --baseUri $BASE_URI
+ENTRYPOINT ["node", "entrypoint.js"]

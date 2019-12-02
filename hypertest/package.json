@@ -14,12 +14,14 @@
     "hydra-validator": "^1.0.11",
     "hydra-validator-e2e": "^0.6.0",
     "line-reader": "^0.4.0",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.2",
+    "yargs": "^15.0.2"
   },
   "devDependencies": {
     "@tpluscode/eslint-config": "0.0.3",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
-    "standard": "^14.3.1"
+    "standard": "^14.3.1",
+    "@types/yargs": "^13.0.3"
   }
 }
