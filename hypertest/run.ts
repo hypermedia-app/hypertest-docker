@@ -101,6 +101,8 @@ function summary(summary: Summary) {
       console.log(`  - ${failure}`)
     })
   }
+
+  process.exit(summary.failures.length)
 }
 
 parseScenarios()
