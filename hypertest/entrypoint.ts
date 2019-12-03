@@ -11,6 +11,9 @@ if (baseUri) {
 if (grep) {
   args.push('--grep', `${grep}`)
 }
+if (argv.dir) {
+  args.push('--dir', `${argv.dir}`)
+}
 
 const analyser = spawn(
   'node',

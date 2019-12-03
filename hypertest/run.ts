@@ -11,6 +11,7 @@ interface Summary {
   successCount: number
 }
 
+program.option('--dir <pattern>', 'Directory to run tests from', 'tests')
 program.option('--grep <pattern>', 'RegExp to filter the test cases')
 program.option('--baseUri <baseUri>', 'Base resource URI')
 
@@ -19,7 +20,7 @@ program.parse(process.argv)
 function parseScenarios() {
   return new Promise((resolve, reject) => {
     console.log('\n------\n   Compiling test scenarios\n------\n')
-    const childProcess = spawn('node_modules/.bin/hypertest-compiler', ['tests'], { stdio: 'inherit' })
+    const childProcess = spawn('node_modules/.bin/hypertest-compiler', [program.dir], { stdio: 'inherit' })
 
     childProcess.on('exit', code => {
       if (code === 0) {
@@ -34,7 +35,7 @@ function parseScenarios() {
 async function filterScenarios() {
   const scenarios: [string, string][] = []
   for await (const file of walk()) {
-    const matches = file.match(/tests\/(.+)\.hydra$/)
+    const matches = file.match(new RegExp(`${program.dir}/(.+)\\.hydra$`))
 
     if (!matches) {
       continue
@@ -66,12 +67,12 @@ function runScenarios(scenarios: [string, string][]): Promise<Summary> {
   return scenarios.reduce((promise, [scenario, path]) => {
     return promise.then(summary => {
       return new Promise(resolve => {
-        const command = `node_modules/.bin/hydra-validator e2e --docs tests/${scenario}.hydra.json ${program.baseUri}${path}`
+        const command = `node_modules/.bin/hydra-validator e2e --docs ${program.dir}/${scenario}.hydra.json ${program.baseUri}${path}`
         console.log(`\n------\n   ${command}\n------\n`)
 
         const childProcess = spawn(
           'node_modules/.bin/hydra-validator',
-          ['e2e', '--docs', `tests/${scenario}.hydra.json`, `${program.baseUri}${path}`, '--strict'],
+          ['e2e', '--docs', `${program.dir}/${scenario}.hydra.json`, `${program.baseUri}${path}`, '--strict'],
           { stdio: 'inherit' })
 
         childProcess.on('exit', code => {
