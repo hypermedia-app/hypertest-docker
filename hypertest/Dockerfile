@@ -1,9 +1,4 @@
-FROM openjdk:13-buster
-
-RUN apt-get install -y curl \
-  && curl -sL https://deb.nodesource.com/setup_13.x | bash - \
-  && apt-get install -y nodejs \
-  && curl -L https://www.npmjs.com/install.sh | sh
+FROM zazukoians/node-java:1.0.0
 
 WORKDIR /hydra-validator
 
