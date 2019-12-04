@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/hypermedia-app/hypertest-docker/compare/hydra-analyser@0.1.0...hydra-analyser@0.2.0) (2019-12-04)
+
+
+### Features
+
+* make it possible to override env var params from command line args ([afd8ec2](https://github.com/hypermedia-app/hypertest-docker/commit/afd8ec21c3ddce89365d132ec91d261f729a15d6))
+
+
+
+
+
 # 0.1.0 (2019-12-01)
 
 
