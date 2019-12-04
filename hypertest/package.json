@@ -8,12 +8,12 @@
     "lint": "eslint . --ext .ts --quiet"
   },
   "dependencies": {
+    "alcaeus": "^0.10.4",
     "@fcostarodrigo/walk": "^4.0.2",
-    "@hydrofoil/hypertest": "^0.6.1-0",
+    "@hydrofoil/hypertest": "^0.6.1",
     "commander": "^4.0.1",
-    "hydra-validator": "^1.0.11",
-    "hydra-validator-e2e": "^0.6.0",
-    "line-reader": "^0.4.0",
+    "hydra-validator": "^1.0.12",
+    "hydra-validator-e2e": "^0.7.0",
     "typescript": "^3.7.2",
     "yargs": "^15.0.2"
   },

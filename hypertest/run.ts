@@ -1,14 +1,15 @@
 import { spawn } from 'child_process'
-import { promisify } from 'util'
 import program from 'commander'
 import walk from '@fcostarodrigo/walk'
-import lineReader from 'line-reader'
-
-const eachLine = promisify(lineReader.eachLine)
 
 interface Summary {
   failures: string[]
   successCount: number
+}
+
+interface Scenario {
+  name: string
+  file: string
 }
 
 program.option('--dir <pattern>', 'Directory to run tests from', 'tests')
@@ -17,9 +18,17 @@ program.option('--baseUri <baseUri>', 'Base resource URI')
 
 program.parse(process.argv)
 
+function headerLog(...texts: string[]) {
+  console.log(`
+------
+${texts.map(text => `   ${text}`).join('\n')}
+------
+`)
+}
+
 function parseScenarios() {
   return new Promise((resolve, reject) => {
-    console.log('\n------\n   Compiling test scenarios\n------\n')
+    headerLog('Compiling test scenarios')
     const childProcess = spawn('node_modules/.bin/hypertest-compiler', [program.dir], { stdio: 'inherit' })
 
     childProcess.on('exit', code => {
@@ -33,9 +42,10 @@ function parseScenarios() {
 }
 
 async function filterScenarios() {
-  const scenarios: [string, string][] = []
-  for await (const file of walk()) {
-    const matches = file.match(new RegExp(`${program.dir}/(.+)\\.hydra$`))
+  const scenarios: Scenario[] = []
+  const skipped: string[] = []
+  for await (const file of walk(program.dir)) {
+    const matches = file.match(new RegExp(`${program.dir}/(.+)\\..+\\.hypertest\\.json$`))
 
     if (!matches) {
       continue
@@ -43,41 +53,41 @@ async function filterScenarios() {
 
     const scenario = matches[1]
     if (!program.grep || scenario.match(program.grep)) {
-      let resourcePath = ''
-      await eachLine(file, (line) => {
-        const matchesResourcePath = line.match(/\/\/.+RESOURCE=(.+)/)
-        if (matchesResourcePath) {
-          resourcePath = matchesResourcePath[1]
-          return false
-        }
+      scenarios.push({
+        name: scenario,
+        file,
       })
-      scenarios.push([scenario, resourcePath])
+    } else {
+      skipped.push(scenario)
     }
+  }
+
+  if (skipped.length > 0) {
+    headerLog('Skipped scenarios not matching pattern:', ...skipped.map(s => `- ${s}`))
   }
 
   return scenarios
 }
 
-function runScenarios(scenarios: [string, string][]): Promise<Summary> {
+function runScenarios(scenarios: Scenario[]): Promise<Summary> {
   const summary: Summary = {
     failures: [],
     successCount: 0,
   }
 
-  return scenarios.reduce((promise, [scenario, path]) => {
+  return scenarios.reduce((promise, { name, file }) => {
     return promise.then(summary => {
       return new Promise(resolve => {
-        const command = `node_modules/.bin/hydra-validator e2e --docs ${program.dir}/${scenario}.hydra.json ${program.baseUri}${path}`
-        console.log(`\n------\n   ${command}\n------\n`)
+        headerLog(`Running scenario ${name}`)
 
         const childProcess = spawn(
           'node_modules/.bin/hydra-validator',
-          ['e2e', '--docs', `${program.dir}/${scenario}.hydra.json`, `${program.baseUri}${path}`, '--strict'],
+          ['e2e', '--docs', file, program.baseUri, '--strict'],
           { stdio: 'inherit' })
 
         childProcess.on('exit', code => {
           if (code !== 0) {
-            summary.failures.push(scenario)
+            summary.failures.push(name)
           } else {
             summary.successCount += 1
           }
@@ -90,13 +100,13 @@ function runScenarios(scenarios: [string, string][]): Promise<Summary> {
 }
 
 function summary(summary: Summary) {
-  console.log('\n------\n   Summary\n------\n')
+  headerLog('Summary')
 
   const total = summary.failures.length + summary.successCount
   console.log(`${summary.successCount}/${total} scenarios succeeded.`)
 
   if (summary.failures.length > 0) {
-    console.log('\n------\n   Failed scenarios\n------\n')
+    headerLog('Failed scenarios')
 
     summary.failures.sort().forEach(failure => {
       console.log(`  - ${failure}`)
