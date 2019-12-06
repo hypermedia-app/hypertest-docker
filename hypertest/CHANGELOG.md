@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.2.0...hypertest@0.3.0) (2019-12-06)
+
+
+### Features
+
+* add support for scenario headers ([435b576](https://github.com/hypermedia-app/hypertest-docker/commit/435b576ff1f9206c64ce1b6d72b3d22a57bc027c))
+
+
+
+
+
 # [0.2.0](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.1.0...hypertest@0.2.0) (2019-12-04)
 
 
