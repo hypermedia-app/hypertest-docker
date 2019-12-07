@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.3.0...hypertest@0.3.1) (2019-12-07)
+
+
+### Bug Fixes
+
+* update hypertest compiler to handle scenario headers ([233ac7a](https://github.com/hypermedia-app/hypertest-docker/commit/233ac7a887bd6ef5bbb36615189d7bdd6d0b0adb))
+
+
+
+
+
 # [0.3.0](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.2.0...hypertest@0.3.0) (2019-12-06)
 
 
