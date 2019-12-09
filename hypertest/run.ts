@@ -12,7 +12,7 @@ interface Scenario {
   file: string
 }
 
-program.option('--dir <pattern>', 'Directory to run tests from', 'tests')
+program.option('--dir <pattern>', 'Directory to run tests from', '/tests')
 program.option('--grep <pattern>', 'RegExp to filter the test cases')
 program.option('--baseUri <baseUri>', 'Base resource URI')
 
@@ -28,7 +28,7 @@ ${texts.map(text => `   ${text}`).join('\n')}
 
 function parseScenarios() {
   return new Promise((resolve, reject) => {
-    headerLog('Compiling test scenarios')
+    headerLog('Compiling test scenarios', `Directory used: ${program.dir}`)
     const childProcess = spawn('node_modules/.bin/hypertest-compiler', [program.dir], { stdio: 'inherit' })
 
     childProcess.on('exit', code => {
@@ -82,7 +82,7 @@ function runScenarios(scenarios: Scenario[]): Promise<Summary> {
 
         const childProcess = spawn(
           'node_modules/.bin/hydra-validator',
-          ['e2e', '--docs', file, program.baseUri, '--strict'],
+          ['e2e', '--docs', `../${file}`, program.baseUri, '--strict'],
           { stdio: 'inherit' })
 
         childProcess.on('exit', code => {

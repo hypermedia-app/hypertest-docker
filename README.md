@@ -37,23 +37,8 @@ Compiles and runs [hypertest][hypertest] test scenarios.
 
 ### Usage
 
-First step is to actually create an-app specific docker image by packaging `hydrofoil/hypertest` with the source files
-written in the [Hypertest DSL][hypertest].
-
-```docker
-FROM hydrofoil/hypertest
-
-ADD e2e-tests/ tests/
-```
-
-Now, run build and run the container:
-
-```bash
-docker build . -t my-e2e-tests
-docker run -it --network host my-e2e-tests --baseUri http://localhost:1234/
-```
-
-The `baseUri` parameter can also be provided as an environment variable.
+The easiest way is to use docker-compose to mount a directory containing the test scenarios
+as `/tests` in the container.
 
 ```yml
 version: "3"
@@ -64,6 +49,14 @@ services:
     network_mode: "host"
     environment:
       BASE_URI: "http://localhost:12345/"
+    volumes:
+      - ./tests:/tests
+```
+
+The base URI can also be changed from the run command
+
+```bash
+docker-compose run e2e-tests --baseUri http://dev-env.my.app/
 ```
 
 Finally, tests can be filtered by a regular expression which is matched against the relative path to test files within

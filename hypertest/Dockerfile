@@ -8,6 +8,5 @@ ADD package*.json ./
 
 RUN npm ci
 RUN npm run build
-RUN mkdir tests
 
 ENTRYPOINT ["node", "entrypoint.js"]
