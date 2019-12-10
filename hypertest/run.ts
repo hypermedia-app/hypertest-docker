@@ -1,4 +1,6 @@
 import { spawn } from 'child_process'
+import { mkdir } from 'temp'
+import copydir from 'copy-dir'
 import program from 'commander'
 import walk from '@fcostarodrigo/walk'
 
@@ -15,6 +17,7 @@ interface Scenario {
 program.option('--dir <pattern>', 'Directory to run tests from', '/tests')
 program.option('--grep <pattern>', 'RegExp to filter the test cases')
 program.option('--baseUri <baseUri>', 'Base resource URI')
+program.option('--compileInPlace', 'Compile in the same directory', false)
 
 program.parse(process.argv)
 
@@ -26,14 +29,39 @@ ${texts.map(text => `   ${text}`).join('\n')}
 `)
 }
 
-function parseScenarios() {
+function copyScenarios(): Promise<string> {
   return new Promise((resolve, reject) => {
-    headerLog('Compiling test scenarios', `Directory used: ${program.dir}`)
-    const childProcess = spawn('node_modules/.bin/hypertest-compiler', [program.dir], { stdio: 'inherit' })
+    if (program.compileInPlace) {
+      resolve(program.dir)
+      return
+    }
+
+    mkdir('', (err, tempDir) => {
+      if (err) {
+        reject(err)
+        return
+      }
+
+      copydir.sync(program.dir, tempDir)
+
+      resolve(tempDir)
+    })
+  })
+}
+
+function parseScenarios(dir: string): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const headerMessages = ['Compiling test scenarios', `Directory used: ${program.dir}`]
+    if (dir !== program.dir) {
+      headerMessages.push(`Using temp directory for compiled output: ${dir}`)
+    }
+
+    headerLog(...headerMessages)
+    const childProcess = spawn('node_modules/.bin/hypertest-compiler', [dir], { stdio: 'inherit' })
 
     childProcess.on('exit', code => {
       if (code === 0) {
-        resolve()
+        resolve(dir)
       }
 
       reject(new Error('Failed to compile test scenarios'))
@@ -41,11 +69,11 @@ function parseScenarios() {
   })
 }
 
-async function filterScenarios() {
+async function filterScenarios(dir: string) {
   const scenarios: Scenario[] = []
   const skipped: string[] = []
-  for await (const file of walk(program.dir)) {
-    const matches = file.match(new RegExp(`${program.dir}/(.+)\\..+\\.hypertest\\.json$`))
+  for await (const file of walk(dir)) {
+    const matches = file.match(new RegExp(`${dir}/(.+)\\..+\\.hypertest\\.json$`))
 
     if (!matches) {
       continue
@@ -116,7 +144,8 @@ function summary(summary: Summary) {
   process.exit(summary.failures.length)
 }
 
-parseScenarios()
+copyScenarios()
+  .then(parseScenarios)
   .then(filterScenarios)
   .then(runScenarios)
   .then(summary)

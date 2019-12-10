@@ -14,6 +14,9 @@ if (grep) {
 if (argv.dir) {
   args.push('--dir', `${argv.dir}`)
 }
+if (argv.compileInPlace) {
+  args.push('--compileInPlace')
+}
 
 const analyser = spawn(
   'node',

@@ -59,12 +59,23 @@ The base URI can also be changed from the run command
 docker-compose run e2e-tests --baseUri http://dev-env.my.app/
 ```
 
-Finally, tests can be filtered by a regular expression which is matched against the relative path to test files within
+#### Filtering tests to run
+
+Tests can be filtered by a regular expression which is matched against the relative path to test files within
 the `tests` directory.
 For example, running from the above `docker-compose.yml`:
 
 ```bash
 docker-compose run e2e-tests --grep ^ProductsCollectionEndpoint/PostRequest_
+```
+
+#### Compile scenarios in-place
+
+By default the tests will be compiled in a temporary path. An optional flag
+can be set to have the test JSON files generated adjacent to the input files.
+
+```
+docker-compose run e2e-tests --compileInPlace
 ```
 
 [hypertest]: https://testing.hypermedia.app/dsl/
