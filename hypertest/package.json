@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@fcostarodrigo/walk": "^4.0.2",
-    "@hydrofoil/hypertest": "^0.7.1",
+    "@hydrofoil/hypertest": "^0.7.2",
     "commander": "^4.0.1",
     "copy-dir": "^1.2.0",
     "hydra-validator": "^1.1.1",
