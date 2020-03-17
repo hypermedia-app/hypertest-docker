@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.4.1...hypertest@0.5.0) (2020-03-17)
+
+
+### Features
+
+* print hypertest and runner versions when starting ([ebecc97](https://github.com/hypermedia-app/hypertest-docker/commit/ebecc976b2c07557659b4320d4240703be1e2953))
+
+
+
+
+
 ## [0.4.1](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.4.0...hypertest@0.4.1) (2020-01-23)
 
 **Note:** Version bump only for package hypertest
