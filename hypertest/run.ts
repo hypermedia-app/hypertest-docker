@@ -144,7 +144,17 @@ function summary(summary: Summary) {
   process.exit(summary.failures.length)
 }
 
-copyScenarios()
+function header() {
+  headerLog(`Using packages:
+  
+@hydrofoil/hypertest: ${require('@hydrofoil/hypertest/package.json').version}
+hydra-validator-e2e: ${require('hydra-validator-e2e/package.json').version}`)
+
+  return Promise.resolve()
+}
+
+header()
+  .then(copyScenarios)
   .then(parseScenarios)
   .then(filterScenarios)
   .then(runScenarios)
