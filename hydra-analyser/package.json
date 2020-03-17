@@ -8,8 +8,8 @@
     "lint": "eslint . --ext .ts --quiet"
   },
   "dependencies": {
-    "hydra-validator": "^1.0.11",
-    "hydra-validator-analyse": "^0.1.6",
+    "hydra-validator": "^1.2",
+    "hydra-validator-analyse": "^0.2",
     "typescript": "^3.7.2"
   },
   "devDependencies": {
