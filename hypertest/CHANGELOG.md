@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.1](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.6.0-alpha.0...hypertest@0.6.0-alpha.1) (2020-04-15)
+
+
+### Bug Fixes
+
+* **e2e:** only fail links when they have child steps ([777d521](https://github.com/hypermedia-app/hypertest-docker/commit/777d521c25b61dcce1cc0a5928578ff11bd164cb))
+
+
+
+
+
 # [0.6.0-alpha.0](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.5.0...hypertest@0.6.0-alpha.0) (2020-04-10)
 
 **Note:** Version bump only for package hypertest
