@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.3](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.6.2...hypertest@0.6.3) (2020-04-25)
+
+
+### Bug Fixes
+
+* link step would fail because of bug in rdfine ([013094f](https://github.com/hypermedia-app/hypertest-docker/commit/013094fb70e4c68e5dc6adf94fd3fde993e282ca))
+
+
+
+
+
 ## [0.6.2](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.6.1...hypertest@0.6.2) (2020-04-24)
 
 **Note:** Version bump only for package hypertest
