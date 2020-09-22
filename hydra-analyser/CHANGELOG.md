@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/hypermedia-app/hypertest-docker/compare/hydra-analyser@0.2.1...hydra-analyser@0.2.2) (2020-09-22)
+
+
+### Bug Fixes
+
+* update hydra-validator ([c9787c4](https://github.com/hypermedia-app/hypertest-docker/commit/c9787c4327b6e2465da9b3fc0b2bcd0a9fe4ec48))
+
+
+
+
+
 ## [0.2.1](https://github.com/hypermedia-app/hypertest-docker/compare/hydra-analyser@0.2.0...hydra-analyser@0.2.1) (2020-03-17)
 
 **Note:** Version bump only for package hydra-analyser

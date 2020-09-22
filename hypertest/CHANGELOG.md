@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.6](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.6.5...hypertest@0.6.6) (2020-09-22)
+
+
+### Bug Fixes
+
+* update hydra-validator ([c9787c4](https://github.com/hypermedia-app/hypertest-docker/commit/c9787c4327b6e2465da9b3fc0b2bcd0a9fe4ec48))
+
+
+
+
+
 ## [0.6.5](https://github.com/hypermedia-app/hypertest-docker/compare/hypertest@0.6.4...hypertest@0.6.5) (2020-05-04)
 
 **Note:** Version bump only for package hypertest
