@@ -1,5 +1,7 @@
-import { argv } from 'yargs'
+import yargs from 'yargs'
 import { spawn } from 'child_process'
+
+const { argv } = yargs
 
 const baseUri = argv.baseUri || process.env.BASE_URI || process.env.BASE_URL
 const grep = argv.grep || process.env.GREP

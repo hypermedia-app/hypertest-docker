@@ -1,4 +1,4 @@
-FROM zazukoians/node-java:2.0.0
+FROM zazukoians/node-java:2.1.0
 
 WORKDIR /hydra-validator
 

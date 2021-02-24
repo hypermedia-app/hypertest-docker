@@ -1,8 +1,9 @@
 import { spawn } from 'child_process'
-import { mkdir } from 'temp'
+import temp from 'temp'
 import copydir from 'copy-dir'
 import program from 'commander'
 import walk from '@fcostarodrigo/walk'
+import packageJson from 'package-json'
 
 interface Summary {
   failures: string[]
@@ -36,7 +37,7 @@ function copyScenarios(): Promise<string> {
       return
     }
 
-    mkdir('', (err, tempDir) => {
+    temp.mkdir('', (err, tempDir) => {
       if (err) {
         reject(err)
         return
@@ -144,13 +145,11 @@ function summary(summary: Summary) {
   process.exit(summary.failures.length)
 }
 
-function header() {
+async function header() {
   headerLog(`Using packages:
   
-@hydrofoil/hypertest: ${require('@hydrofoil/hypertest/package.json').version}
-hydra-validator-e2e: ${require('hydra-validator-e2e/package.json').version}`)
-
-  return Promise.resolve()
+@hydrofoil/hypertest: ${(await packageJson('@hydrofoil/hypertest')).version}
+hydra-validator-e2e: ${(await packageJson('hydra-validator-e2e')).version}`)
 }
 
 header()
