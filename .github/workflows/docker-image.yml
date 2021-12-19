@@ -1,0 +1,31 @@
+name: Docker Image CI
+
+on:
+  push:
+    tags: '*'
+    branches: '*'
+
+jobs:
+  hypertest:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: myrotvorets/info-from-package-json-action@1.1.0
+      id: ver
+      with:
+        workingdir: hypertest
+    - name: Build hypertest
+      run: docker build . --tag hydrofoil/hypertest:${{ steps.ver.outputs.packageVersion }}
+      working-directory: hypertest
+      
+  hydra-analyser:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: myrotvorets/info-from-package-json-action@1.1.0
+      id: ver
+      with:
+        workingdir: hydra-analyser
+    - name: Build hydra-analyser
+      run: docker build . --tag hydrofoil/hydra-analyser:${{ steps.ver.outputs.packageVersion }}
+      working-directory: hydra-analyser
