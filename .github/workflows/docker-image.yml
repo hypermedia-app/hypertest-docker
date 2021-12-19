@@ -21,8 +21,7 @@ jobs:
     - uses: docker/build-push-action@v2
       with:
         context: hypertest
-        tags: hydrofoil/hypertest:${{ steps.ver.outputs.packageVersion }}
-        push: ${{ startsWith(github.ref, 'refs/tags/hypertest@') }}
+        tags: ${{ startsWith(github.ref, 'refs/tags/hypertest@') && format('hydrofoil/hypertest:{0},hydrofoil/hypertest:latest', steps.ver.outputs.packageVersion) || 'hydrofoil/hypertest:latest' }}
 
   hydra-analyser:
     runs-on: ubuntu-latest
@@ -39,5 +38,4 @@ jobs:
     - uses: docker/build-push-action@v2
       with:
         context: hydra-analyser
-        tags: hydrofoil/hydra-analyser:${{ steps.ver.outputs.packageVersion }}
-        push: ${{ startsWith(github.ref, 'refs/tags/hydra-analyser@') }}
+        tags: ${{ startsWith(github.ref, 'refs/tags/hydra-analyser@') && format('hydrofoil/hydra-analyser:{0},hydrofoil/hydra-analyser:latest', steps.ver.outputs.packageVersion) || 'hydrofoil/hydra-analyser:latest' }}
